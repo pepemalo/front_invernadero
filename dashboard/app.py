@@ -10,6 +10,8 @@ import io
 
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
+server = app.server
+
 PLOTLY_LOGO = "http://www.iser.edu.co/iser/hermesoft/portalIG/home_1/recursos/documentos_generales/2022/05082022/id_corp_logo_horiz_colores.png"
 
 SIDEBAR_STYLE = {
@@ -442,6 +444,5 @@ def render_page_content(pathname):
 
 
 if __name__ == ('__main__'):
-    app.run_server( port=8050, debug=True)
-    """host="192.168.2.112","""
+    app.run_server(debug=True)
 
