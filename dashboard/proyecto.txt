@@ -1,0 +1,477 @@
+from dash.dependencies import Input, Output, State
+import dash_bootstrap_components as dbc
+import dash_html_components as html
+import dash_core_components as dcc
+import plotly.express as px
+import pandas as pd
+import dash_table
+from dash import dash_table, dash
+import base64
+import datetime
+import io
+from dash import Dash, dcc, html, Input, Output
+from datetime import date
+
+"""
+dt = pd.read_csv('../datosTrue01.csv')
+df = pd.DataFrame(dt)
+# print(df)
+# df.FECHA = pd.to_datetime(df.FECHA, format="%Y/%m/%d")
+pd.to_datetime(df.FECHA, format="%Y/%m/%d")
+fecha1 = '2022-03-01'
+fecha2 = '2022-03-15'
+rango = (df.FECHA >= fecha1) & (df.FECHA <= fecha2)
+df1 = df.loc[rango]
+pd.to_datetime(df1.FECHA, format="%Y/%m/%d")
+# print(df1)
+aux = None
+fch = []
+for i in df1.FECHA:
+    if i != aux:
+        aux = i
+        fch.append(i)
+# print(fch)
+print('====> ', len(df1.index))
+datos = []
+aux = []
+df2 = df1
+for i in df2:
+    if i != 'FECHA':
+        for j in range(0, len(fch)):
+            rango = (df.FECHA == fch[j])
+            df1 = df.loc[rango]
+            aux.append(df1[i].mean())
+        datos.append(aux)
+        aux = []
+dtTrue = {'FECHA': fch,
+          'T1': datos[0], 'T2': datos[1], 'T3': datos[2], 'T4': datos[3],
+          'H1': datos[4], 'H2': datos[5], 'H3': datos[6], 'H4': datos[7],
+          'MO1': datos[8], 'MO2': datos[9], 'MO3': datos[10], 'MO4': datos[11],
+          'LUX1': datos[12], 'LUX2': datos[13], 'LUX3': datos[14], 'LUX4': datos[15], }
+df = pd.DataFrame(dtTrue)
+"""
+
+app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+
+PLOTLY_LOGO = "data:image/png;base64,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"
+
+CONTENT_STYLE = {
+    "background-color": "#F8F9FC",
+    "min-height": "50vh",
+    "margin-left": "18rem",
+    "margin-right": "0rem",
+    "padding": "2rem 0rem",
+}
+
+CALEN_STYLE = {
+    "margin-left": "2rem",
+    "margin-right": "0rem",
+
+}
+
+SIDEBAR_STYLE = {
+    "position": "fixed",
+    "top": 0,
+    "left": 0,
+    "bottom": 0,
+    "width": "18rem",
+    "padding": "2rem 1rem",
+    "background-color": "#28a745",
+}
+
+LATERAL_STYLE = {
+    "position": "relative",
+    "width": "90px",
+    "padding": "1px",
+    "margin-right": "0px",
+    "margin-left": "1px",
+
+}
+
+LOGO_STYLE = {
+
+    "margin-left": "14rem"
+}
+
+sidebar = html.Div(
+    [
+        html.H2("Menu", className="text-black"),
+        html.Hr(),
+
+        dbc.Nav(
+            [
+                dbc.NavLink("Home", href="/", className="text-black", active="exact"),
+                html.Hr(),
+                dbc.NavLink("Temperaturas", href="/graficas", className="text-black", active="exact",
+                            style={"position": 'relative'}),
+                html.Hr(),
+                dbc.Button("SINCRONIZAR",  className="text-black", active="exact", color="warning", size="col-sm"),
+            ],
+            vertical=True,
+
+        ),
+    ],
+    style=SIDEBAR_STYLE,
+)
+
+"""app.layout = html.Div([
+    daq.PowerButton(
+        id="boton-de-encendido-resultado",
+        on="False",
+        labelPosition='top',
+        size=500,
+        color="red",
+    ),
+    html.Div(id='boton-de-encendido-resultado')
+])
+"""
+carousel = dbc.Carousel(
+    items=[
+        {"key": "1", "src": "/img/img1.png"},
+        {"key": "2", "src": "/img/greenhouse-g9e7235412_640.png"},
+        {"key": "3", "src": "/img/img3.png"},
+        {"key": "4", "src": "/img/img4.png"},
+    ],
+    controls=True,
+    indicators=True,
+)
+
+
+nav = dbc.Nav(
+
+    [
+
+        dbc.NavItem(dbc.NavLink(
+            "Graficas", className="text-black", active=True, href="/graficas")),
+        dbc.NavItem(dbc.NavLink(
+            "Manual", className="text-black", href="/manual")),
+        dbc.NavItem(dbc.NavLink(
+            "Acerca", className="text-black", href="/acerca")),
+        dbc.NavItem(dbc.NavLink("Modal", className="text-black", id="open", n_clicks=0, href="#")),
+        dbc.Modal(
+            [
+                dbc.ModalHeader("Prueba Modal"),
+                dbc.ModalBody("Prueba de integracion de modal."),
+                dbc.ModalFooter(
+                    dbc.Button(
+                        "Cerrar", id="close", className="ms-auto", n_clicks=0
+                    )
+                ),
+            ], id="modal",
+            is_open=False,
+
+        ),
+
+    ],
+    style=LATERAL_STYLE,
+
+)
+
+navbar = dbc.Navbar(
+    dbc.Container(
+        [
+
+            html.A(
+                # Use row and col to control vertical alignment of logo / brand
+                dbc.Row(
+                    [
+                        dbc.Col(html.Img(src=PLOTLY_LOGO, height="50px")),
+                        dbc.Col(dbc.NavbarBrand("Plotly | Dash", className="text-black")),
+                    ],
+                    style=LOGO_STYLE,
+
+                ),
+                href="/",
+                style={"textDecoration": "none"},
+            ),
+            dbc.NavbarToggler(id="navbar-toggler", n_clicks=0),
+            dbc.Collapse(
+                nav,
+                id="navbar-collapse",
+                is_open=False,
+                navbar=True,
+            ),
+        ],
+
+    ),
+    color="#1D8348",
+    dark=False,
+)
+
+plantilla = html.Div(id="contenido", children=[], style=CONTENT_STYLE)
+
+app.layout = html.Div(children=[
+    dcc.Location(id="url"),
+    navbar,
+    sidebar,
+    plantilla,
+
+])
+
+
+# add callback for toggling the collapse on small screens
+
+
+@app.callback(
+    Output("modal", "is_open"),
+    [Input("open", "n_clicks"), Input("close", "n_clicks")],
+    [State("modal", "is_open")],
+)
+def toggle_modal(n1, n2, is_open):
+    if n1 or n2:
+        return not is_open
+    return is_open
+
+
+@app.callback(
+    Output("navbar-collapse", "is_open"),
+    [Input("navbar-toggler", "n_clicks")],
+    [State("navbar-collapse", "is_open")],
+)
+def toggle_navbar_collapse(n, is_open):
+    if n:
+        return not is_open
+    return is_open
+
+
+@app.callback(
+    Output('bargraph', 'figure'),
+    Input('date-picker-range', 'start_date'),
+    Input('date-picker-range', 'end_date'),
+    Input('selec_grafi', 'value')
+)
+def update_graph(start, end, value):
+    df = ''
+    if start and end:
+        start = date.fromisoformat(start)
+        start = start.strftime('%Y-%m-%d')
+        end = date.fromisoformat(end)
+        end = end.strftime('%Y-%m-%d')
+
+        print("Conxion LOCAL")
+        dt = pd.read_csv('../datosTrue01.csv')
+        df = pd.DataFrame(dt)
+        rango = (df.FECHA >= start) & (df.FECHA <= end)
+        df1 = df.loc[rango]
+        pd.to_datetime(df1.FECHA, format="%Y/%m/%d")
+        aux = None
+        fch = []
+        for i in df1.FECHA:
+            if i != aux:
+                aux = i
+                fch.append(i)
+        datos = []
+        aux = []
+        df2 = df1
+        for i in df2:
+            if i != 'FECHA':
+                for j in range(0, len(fch)):
+                    rango = (df.FECHA == fch[j])
+                    df1 = df.loc[rango]
+                    aux.append(df1[i].mean())
+                datos.append(aux)
+                aux = []
+        dtTrue = {'FECHA': fch,
+                  'T1': datos[0], 'T2': datos[1], 'T3': datos[2], 'T4': datos[3],
+                  'H1': datos[4], 'H2': datos[5], 'H3': datos[6], 'H4': datos[7],
+                  'MO1': datos[8], 'MO2': datos[9], 'MO3': datos[10], 'MO4': datos[11],
+                  'LUX1': datos[12], 'LUX2': datos[13], 'LUX3': datos[14], 'LUX4': datos[15], }
+        df = pd.DataFrame(dtTrue)
+        # print(df)
+        pd.to_datetime(df.FECHA, format="%Y/%m/%d")
+
+    if start and end and value == 'Barra':
+        my_bar = px.bar(df, x='FECHA', y="T1")
+        my_bar.update_layout(xaxis_visible=True)
+        return my_bar
+
+    if start and end and value == 'Linea':
+        my_line = px.line(df, x='FECHA', y="T1")
+        my_line.update_layout(xaxis_visible=True)
+        return my_line
+
+    if start and end and value == 'Area':
+        my_area = px.area(df, x='FECHA', y="T1")
+        my_area.update_layout(xaxis_visible=True)
+        return my_area
+
+    else:
+        dash.no_update()
+
+
+@app.callback(
+    Output("contenido", "children"),
+    [Input("url", "pathname")]
+)
+def render_page_content(pathname):
+    img1 = "https://www.gacetaregional.com/sitegr/wp-content/uploads/2019/09/iser-de-pamplona.png"
+    img2 = "https://cdn.pixabay.com/photo/2020/04/06/11/22/seedling-5009286_960_720.jpg"
+    img3 = "https://cdn.pixabay.com/photo/2016/10/30/05/49/agriculture-1782437_960_720.jpg"
+    img4 = "https://cdn.pixabay.com/photo/2020/04/06/11/22/seedling-5009289_960_720.jpg"
+    img5 = "https://cdn.pixabay.com/photo/2017/04/23/07/00/garden-2253111_960_720.jpg"
+
+
+
+    if pathname == "/graficas":
+        return [
+
+            html.Div([
+
+                dcc.Upload(
+                    id='upload-data',
+                    children=html.Div([
+                        'Seleccione',
+                        html.A('El Archivo')
+                    ]),
+
+                    style={
+                        'width': '200px',
+                        'height': '50px',
+                        'lineHeight': '40px',
+                        'borderStyle': 'groove',
+                        'borderRadius': '10px',
+                        'textAlign': 'center',
+                        'background-color': '#3dc2ff',
+                        "position": 'relative',
+                        "top": '0px',
+                        "left": '20px',
+
+
+
+                    },
+                    # Allow multiple files to be uploaded
+                    multiple=False,
+                ),
+                html.Div(id='output-data-upload'),
+            ]),
+
+            html.Div([
+
+                dcc.DatePickerRange(
+                    id='date-picker-range',
+                    start_date_placeholder_text='Select a date',
+                    end_date_placeholder_text='Select a date',
+                    style={
+                        "position": 'relative',
+                        "top": '-50px',
+                        "right": '-250px',
+
+
+                    }
+
+                ),
+
+
+                html.Div([
+                    dcc.Dropdown(['Linea', 'Area', 'Barra'], 'Barra',
+                                 id='selec_grafi',
+                                 style={
+                                     "width": "100px",
+                                     'height': '20px',
+                                     'position': 'relative',
+                                     "top": '-15px',
+                                     "left": '25px',
+
+
+                                 }
+                    ),
+                ]),
+
+
+
+                dbc.Row([
+                    dbc.Col([
+                        dcc.Graph(id='bargraph',
+                                  style={
+                                      "width": '10',
+
+                                      'position': 'relative',
+                                  },
+                                  figure={})
+                    ],
+
+                    ),
+
+                ],
+                    justify="center",
+
+                ),
+
+            ]),
+
+
+        ]
+
+    elif pathname == "/manual":
+        return [
+            html.Br(),
+            dbc.CardBody(
+                [
+                    html.H4("MANUAL", className="card-title"),
+                    html.H6("Descripción", className="card-subtitle"),
+                    html.P(
+                        "Esta seccion esta reserbada para las indicaciones "
+                        "y manejo del aplicativo",
+                        className="card-text",
+                    ),
+                    html.H4("NI SE COMO SE UTILIZA JAJAJAJ"),
+                ], style={"textAlign": "center"},
+            )
+        ]
+    elif pathname == "/acerca":
+        return [
+            html.Br(),
+            dbc.CardBody(
+                [
+                    html.H4("ACERCA", className="card-title"),
+                    html.H6("Software con Derecho de Autor", className="card-subtitle"),
+                    html.H3("@Autores:"),
+                    html.H4(
+                        "Anderson Cardozo Arrieta",
+                        className="card-text",
+                    ),
+                    html.H4("Yordan Daniel Tarazona"),
+                ], style={"textAlign": "center"},
+            )
+        ]
+    elif pathname == "/":
+        return [
+            html.Br(),
+            dbc.Row([
+                dbc.Col([
+                    dbc.Carousel(
+                        items=[
+                            {"key": "1", "src": img1, "img_style": {
+                                "max-height": "500px"}},
+                            {"key": "2", "src": img2, "img_style": {
+                                "max-height": "500px"}},
+                            {"key": "3", "src": img3, "img_style": {
+                                "max-height": "500px"}},
+                            {"key": "4", "src": img4, "img_style": {
+                                "max-height": "500px"}},
+                            {"key": "5", "src": img5, "img_style": {
+                                "max-height": "500px"}},
+                        ],
+                        controls=True,
+                        indicators=True,
+                        interval=1500,
+                        ride="carousel",
+                        className="carousel-fade",
+                    )
+                ], width=8)
+            ], justify="center"),
+        ]
+
+    # If the user tries to reach a different page, return a 404 message
+    return dbc.Jumbotron(
+        [
+            html.H1("404: Not found", className="text-danger"),
+            html.Hr(),
+            html.P(f"The pathname {pathname} was not recognised..."),
+        ]
+    )
+
+
+if __name__ == ('__main__'):
+    app.run_server(host="192.168.2.112", port=8050, debug=True)
+
