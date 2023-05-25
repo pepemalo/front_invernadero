@@ -326,18 +326,6 @@ def update_graph(start, end, grafi, opci):
         my_area = px.area(df, x='FECHA', y="T1")
         my_area.update_layout(xaxis_visible=True)
         return my_area
-    if start and end and grafi == 'Barra':
-        my_bar = px.bar(df, x='FECHA', y="H1")
-        my_bar.update_layout(xaxis_visible=True)
-        return my_bar
-    if start and end and grafi == 'Linea':
-        my_line = px.line(df, x='FECHA', y="H1")
-        my_line.update_layout(xaxis_visible=True)
-        return my_line
-    if start and end and grafi == 'Area':
-        my_area = px.area(df, x='FECHA', y="H1")
-        my_area.update_layout(xaxis_visible=True)
-        return my_area
     else:
         return dash.no_update
 @app.callback(
