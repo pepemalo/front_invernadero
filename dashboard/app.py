@@ -277,14 +277,13 @@ def update_graph(start, end, grafi, opci):
         
         
         if opci == "API":
-            print("Conxion API")
+            print("Conxion por medio de API")
             dt = pd.read_json("https://rest-server-invernadero.onrender.com/api/v1/filterDatos/"+start+"&"+end+"")
-            print("Graficara los archivos ::" ,dt)
             df = pd.DataFrame(dt)
+            print("Graficara los archivos ::" ,df)
         else:
             print("Conxion LOCAL")
             dt = pd.read_csv('../datosTrue01.csv')
-            print("hola")
             df = pd.DataFrame(dt)
             rango = (df.FECHA >= start) & (df.FECHA <= end)
             df1 = df.loc[rango]
@@ -301,6 +300,7 @@ def update_graph(start, end, grafi, opci):
             for i in df2:
                 if i != 'FECHA':
                     for j in range(0, len(fch)):
+                        print("Dentro del for recorriendo j:: ", j)
                         rango = (df.FECHA == fch[j])
                         df1 = df.loc[rango]
                         aux.append(df1[i].mean())
