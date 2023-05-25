@@ -8,26 +8,26 @@ import base64
 import datetime
 import io
 
-app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+
+
+app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP], suppress_callback_exceptions=True)
 
 server = app.server
 
 PLOTLY_LOGO = "http://www.iser.edu.co/iser/hermesoft/portalIG/home_1/recursos/documentos_generales/2022/05082022/id_corp_logo_horiz_colores.png"
-
 SIDEBAR_STYLE = {
     "position": "fixed",
     "top": 62.5,
     "left": 0,
     "bottom": 0,
-    "width": "16rem",
+    "width": "07rem",
     "height": "100%",
     "z-index": 1,
     "overflow-x": "hidden",
     "transition": "all 0.5s",
     "padding": "0.5rem 1rem",
-    "background-color": "#1D8348",
+    "background-color": "rgba(29, 131, 72, 0.5)",
 }
-
 SIDEBAR_HIDEN = {
     "position": "fixed",
     "top": 62.5,
@@ -38,10 +38,9 @@ SIDEBAR_HIDEN = {
     "z-index": 1,
     "overflow-x": "hidden",
     "transition": "all 0.5s",
-    "padding": "0rem 0rem",
+    "padding": "0rem 0rem", 
     "background-color": "#f8f9fa",
 }
-
 CONTENT_STYLE = {
     "transition": "margin-left .5s",
     "margin-left": "18rem",
@@ -49,7 +48,6 @@ CONTENT_STYLE = {
     "padding": "2rem 1rem",
     "background-color": "#f8f9fa",
 }
-
 CONTENT_STYLE1 = {
     "transition": "margin-left .5s",
     "margin-left": "2rem",
@@ -57,12 +55,10 @@ CONTENT_STYLE1 = {
     "padding": "2rem 1rem",
     "background-color": "#f8f9fa",
 }
-
 CALEN_STYLE = {
     "margin-left": "2rem",
     "margin-right": "0rem",
 }
-
 LATERAL_STYLE = {
     "position": "relative",
     "width": "90px",
@@ -71,19 +67,33 @@ LATERAL_STYLE = {
     "margin-left": "1px",
 }
 
+
+
+
+cart_style = {
+    'background-color': 'white',
+    'border': '2px solid gray',
+    'border-radius': '10px',
+    'padding': '10px',
+    'width': '100%',
+    'height': '150px',
+    'display': 'flex',
+    'flex-direction': 'column',
+    'align-items': 'center',
+    'justify-content': 'center'
+}
+
+cart_text_style = {
+    'font-size': '30px',
+    'font-weight': 'bold',
+    'cursor': 'pointer'
+}
+
+
+
 sidebar = html.Div(
     [
-        dbc.Nav(
-            [
-                dbc.NavLink("Home", href="/", className="text-white", active="exact"),
-                html.Hr(),
-                dbc.NavLink("Temperaturas", href="/graficas", className="text-white", active="exact",
-                            style={"position": 'relative'}),
-                html.Hr(),
-                dbc.Button("SINCRONIZAR",  className="text-white", active="exact", color="warning", size="col-sm"),
-            ],
-            vertical=True,
-        ),
+       
     ],
     id="sidebar",
     style=SIDEBAR_STYLE,
@@ -99,22 +109,44 @@ carousel = dbc.Carousel(
     controls=True,
     indicators=True,
 )
-
 nav = dbc.Nav(
-    
+
     [
         dbc.NavItem(dbc.NavLink("Menu", active=True, className="text-white", id="btn_sidebar", href="#")),
-        dbc.NavItem(dbc.NavLink(
-            "Graficas", className="text-white", active=True, href="/graficas")),
-        dbc.NavItem(dbc.NavLink(
-            "Manual", className="text-white", href="/manual")),
-        dbc.NavItem(dbc.NavLink(
-            "Acerca", className="text-white", href="/acerca")),
+        dbc.NavItem(dbc.NavLink("Graficas", className="text-white", active=True, href="/graficas")),
+        dbc.NavItem(dbc.NavLink("Manual", className="text-white", href="/manual")),
         dbc.NavItem(dbc.NavLink("Modal", className="text-white", id="open", n_clicks=0, href="#")),
         dbc.Modal(
             [
-                dbc.ModalHeader("Modal"),
-                dbc.ModalBody("Prueba de integracion de modal."),
+                dbc.ModalHeader("DESARROLLADO POR",className="modal-title font-weight-bold text-primary", style={"text-align": "center", "font-size": "2rem"}),
+                html.H2("Anderson Cardozo Arrieta", className="card-text"),
+                html.H2(" ", className="card-text"),
+                html.H2("Yordan Daniel Tarazona Gamboa", className="card-text"),
+                html.H2(" ", className="card-text"),
+                dbc.ModalFooter(
+                    dbc.Button(
+                        "Cerrar", id="close", className="ms-auto", color="outline-success", n_clicks=0
+                    )
+                ),
+            ], id="modal",
+            is_open=False,
+        ),
+    ],
+    style=LATERAL_STYLE,
+)
+nav = dbc.Nav(
+    [
+        dbc.NavItem(dbc.NavLink("Menu", active=True, className="text-white", id="btn_sidebar", href="#")),
+        dbc.NavItem(dbc.NavLink("Graficas", className="text-white", active=True, href="/graficas")),
+        dbc.NavItem(dbc.NavLink("Manual", className="text-white", href="/manual")),
+        dbc.NavItem(dbc.NavLink("Modal", className="text-white", id="open", n_clicks=0, href="#")),
+        dbc.Modal(
+            [
+                dbc.ModalHeader("DESARROLLADO POR",className="modal-title font-weight-bold text-primary", style={"text-align": "center", "font-size": "2rem"}),
+                html.H2("Anderson Cardozo Arrieta", className="card-text"),
+                html.H2(" ", className="card-text"),
+                html.H2("Yordan Daniel Tarazona Gamboa", className="card-text"),
+                html.H2(" ", className="card-text"),
                 dbc.ModalFooter(
                     dbc.Button(
                         "Cerrar", id="close", className="ms-auto", color="outline-success", n_clicks=0
@@ -127,22 +159,20 @@ nav = dbc.Nav(
     style=LATERAL_STYLE,
 )
 
-
 navbar = dbc.Navbar(
     dbc.Container(
         [
             html.A(
-                
                 dbc.Row(
                     [
                         dbc.Col(html.Img(src=PLOTLY_LOGO, height="50px")),
-                        dbc.Col(dbc.NavbarBrand("Plotly | Dash", className="text-black")),
+                        dbc.Col(dbc.NavbarBrand("Invernadero", className="text-black",
+                        style={"font-size": "24px", "font-weight": "bold", "color": "white"}))
                     ],
                 ),
                 href="/",
                 style={"textDecoration": "none"},
             ),
-            dbc.NavbarToggler(id="navbar-toggler", n_clicks=0),
             dbc.Collapse(
                 nav,
                 id="navbar-collapse",
@@ -151,20 +181,43 @@ navbar = dbc.Navbar(
             ),
         ],
     ),
-    color="#1D8348",
+    color="#96ceb4",
     dark=False,
+    className="fixed-top",
+    style={"height": "80px"},
 )
-
+"""
+app.layout = html.Div([
+    dcc.Location(id='url', refresh=False),
+    dbc.Row([
+        dbc.Col([
+            html.A([
+                html.Div('Your cart', style=cart_text_style),
+                html.Div('Total items: 10'),
+                html.Div('Total price: $100')
+            ], id='cart-link', href='/robot.py')
+        ], width=3, style={'background-color': 'White ', 'color': 'White ', 'height': '20vh', 'width': '40vh', 'padding': '6px', 'border': '8px solid black'}),
+        dbc.Col([
+            html.Div('Main content goes here')
+        ], width=9)
+    ], style={'margin': '0px', 'height': '20vh'}),
+],
+)
+"""
 plantilla = html.Div(id="page-content", style=CONTENT_STYLE)
-
 app.layout = html.Div(children=[
     dcc.Store(id='side_click'),
     dcc.Location(id="url"),
     navbar,
     sidebar,
+    #app.layout,
     plantilla,
 ])
-
+@app.callback(Output('url', 'pathname'), [Input('cart-link', 'n_clicks')], [State('url', 'pathname')])
+def go_to_robot(n_clicks, pathname):
+    if n_clicks is not None:
+        return '/robot.py'
+    return pathname
 
 @app.callback(
     [Output("sidebar", "style"),
@@ -188,8 +241,6 @@ def toggle_sidebar(n, nclick):
         content_style = CONTENT_STYLE
         cur_nclick = 'SHOW'
     return sidebar_style, content_style, cur_nclick
-
-
 @app.callback(
     Output("modal", "is_open"),
     [Input("open", "n_clicks"), Input("close", "n_clicks")],
@@ -199,8 +250,6 @@ def toggle_modal(n1, n2, is_open):
     if n1 or n2:
         return not is_open
     return is_open
-
-
 @app.callback(
     Output("navbar-collapse", "is_open"),
     [Input("navbar-toggler", "n_clicks")],
@@ -210,8 +259,6 @@ def toggle_navbar_collapse(n, is_open):
     if n:
         return not is_open
     return is_open
-
-
 @app.callback(
     Output('bargraph', 'figure'),
     Input('date-picker-range', 'start_date'),
@@ -279,9 +326,7 @@ def update_graph(start, end, grafi, opci):
         my_area.update_layout(xaxis_visible=True)
         return my_area
     else:
-        dash.no_update()
-
-
+        return dash.no_update
 @app.callback(
     Output("page-content", "children"),
     [Input("url", "pathname")]
@@ -293,6 +338,7 @@ def render_page_content(pathname):
     img4 = "https://cdn.pixabay.com/photo/2020/04/06/11/22/seedling-5009289_960_720.jpg"
     img5 = "https://cdn.pixabay.com/photo/2017/04/23/07/00/garden-2253111_960_720.jpg"
     if pathname == "/graficas":
+
         return [
             html.Div([
                 dcc.Upload(
@@ -310,7 +356,7 @@ def render_page_content(pathname):
                         'textAlign': 'center',
                         'background-color': '#3dc2ff',
                         "position": 'relative',
-                        "top": '0px',
+                        "top": '50px',
                         "left": '20px',
                     },
                     # Allow multiple files to be uploaded
@@ -325,7 +371,7 @@ def render_page_content(pathname):
                     end_date_placeholder_text='Select a date',
                     style={
                         "position": 'relative',
-                        "top": '-50px',
+                        "top": '-0px',
                         "right": '-250px',
                     }
                 ),
@@ -335,7 +381,7 @@ def render_page_content(pathname):
                         dbc.Row(
                             [
                                 dbc.Col(html.P("Forma de la Grafica"),),
-                                dbc.Col(html.P("Forma de la Grafica"),),
+                                dbc.Col(html.P("Modo Graficas"),),
                             ],
                         ),
                         dbc.Row(
@@ -357,7 +403,8 @@ def render_page_content(pathname):
                             ],
                         ),
                     ],),          
-                ]),
+                ]
+                ),
                 html.Br(),
                 dbc.Row([
                     dbc.Col([
@@ -374,35 +421,25 @@ def render_page_content(pathname):
                 ),
             ]),
         ]
+    
     elif pathname == "/manual":
+        print("OPCION MANUAL.")
+        file_path = os.path.abspath("MANUAL DE USUARIO V2.pdf")
+        print("Busco el Archivo en la siguiente ruta.",file_path)
+        with open(file_path, 'rb') as f:
+            pdf_bytes = f.read()
+            #print(" pdf convertido a bytes :",pdf_bytes)
+            pdf_b64 = base64.b64encode(pdf_bytes).decode('utf-8')
+            pdf_url = f"data:application/pdf;base64,{pdf_b64}"
+            #print(" pdf  ruta f :",pdf_url)
+            pdf_viewer = html.Iframe(src=pdf_url, width='80%', height='700')
+            print("Ya convirtio el Archivo .")
         return [
             html.Br(),
             dbc.CardBody(
                 [
-                    html.H4("MANUAL", className="card-title"),
-                    html.H6("Descripción", className="card-subtitle"),
-                    html.P(
-                        "Esta seccion esta reserbada para las indicaciones "
-                        "y manejo del aplicativo",
-                        className="card-text",
-                    ),
-                    html.H4("NI SE COMO SE UTILIZA JAJAJAJ"),
-                ], style={"textAlign": "center"},
-            )
-        ]
-    elif pathname == "/acerca":
-        return [
-            html.Br(),
-            dbc.CardBody(
-                [
-                    html.H4("ACERCA", className="card-title"),
-                    html.H6("Software con Derecho de Autor", className="card-subtitle"),
-                    html.H3("@Autores:"),
-                    html.H4(
-                        "Anderson Cardozo Arrieta",
-                        className="card-text",
-                    ),
-                    html.H4("Yordan Daniel Tarazona"),
+                    html.H4("Intrucciones"),
+                    html.Div(children=[pdf_viewer])  # Aquí agregamos el componente html.Div que contiene el pdf_viewer
                 ], style={"textAlign": "center"},
             )
         ]
@@ -442,7 +479,5 @@ def render_page_content(pathname):
         ]
     )
 
-
 if __name__ == ('__main__'):
-    app.run_server(debug=True)
-
+    app.run_server(debug=False)
