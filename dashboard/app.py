@@ -279,7 +279,7 @@ def update_graph(start, end, grafi, opci):
         if opci == "API":
             print("Conxion API")
             dt = pd.read_json("https://rest-server-invernadero.onrender.com/api/v1/filterDatos/"+start+"&"+end+"")
-            print("hola")
+            print("Graficara los archivos ::" ,dt)
             df = pd.DataFrame(dt)
         else:
             print("Conxion LOCAL")
@@ -315,15 +315,15 @@ def update_graph(start, end, grafi, opci):
             print(df)
             pd.to_datetime(df.FECHA, format="%Y/%m/%d")
     if start and end and grafi == 'Barra':
-        my_bar = px.bar(df, x='FECHA', y="T1")
+        my_bar = px.bar(df, x='FECHA', y=['T1', 'H1', 'MO1', 'LUX1'])
         my_bar.update_layout(xaxis_visible=True)
         return my_bar
     if start and end and grafi == 'Linea':
-        my_line = px.line(df, x='FECHA', y="T1")
+        my_line = px.line(df, x='FECHA', y=['T1', 'H1', 'MO1', 'LUX1'])
         my_line.update_layout(xaxis_visible=True)
         return my_line
     if start and end and grafi == 'Area':
-        my_area = px.area(df, x='FECHA', y="T1")
+        my_area = px.area(df, x='FECHA', y=['T1', 'H1', 'MO1', 'LUX1'])
         my_area.update_layout(xaxis_visible=True)
         return my_area
     else:
