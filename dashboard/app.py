@@ -15,7 +15,7 @@ app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP], suppress_callb
 
 server = app.server
 
-PLOTLY_LOGO = "https://www.google.com/imgres?imgurl=http%3A%2F%2Fwww.iser.edu.co%2Fiser%2Fhermesoft%2FportalIG%2Fhome_1%2Frecursos%2Fdocumentos_generales%2F2022%2F05082022%2Fid_corp_logo_horiz_colores.png&tbnid=Y9TKfE1oK1vOmM&vet=12ahUKEwiM_KyMspn_AhUfcTABHestAg0QMygCegQIARBA..i&imgrefurl=http%3A%2F%2Fwww.iser.edu.co%2Fiser%2Fhermesoft%2FportalIG%2Fhome_1%2Frecursos%2Fpaginas_contenido%2F21072015%2Fpag_imagen_corporativa_2.jsp&docid=A2pzxhRhuqHfbM&w=1350&h=350&q=logo%20iser%20con%20https&ved=2ahUKEwiM_KyMspn_AhUfcTABHestAg0QMygCegQIARBA"
+PLOTLY_LOGO = "https://www.redttu.edu.co/es/wp-content/uploads/2015/12/23.-ISER.png"
 SIDEBAR_STYLE = {
     "position": "fixed",
     "top": 62.5,
@@ -54,7 +54,7 @@ CONTENT_STYLE1 = {
     "margin-left": "2rem",
     "margin-right": "2rem",
     "padding": "2rem 1rem",
-    "background-color": "#f8f9fa",
+            "background-color": "#f8f9fa",
 }
 CALEN_STYLE = {
     "margin-left": "2rem",
