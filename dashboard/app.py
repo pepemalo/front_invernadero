@@ -28,7 +28,7 @@ SIDEBAR_STYLE = {
     "overflow-x": "hidden",
     "transition": "all 0.5s",
     "padding": "0.5rem 1rem",
-    "background-color": "#7FFFD4",
+    "background-color": "#96ceb4", ##96ceb4
 }
 SIDEBAR_HIDEN = {
     "position": "fixed",
@@ -192,7 +192,7 @@ navbar = dbc.Navbar(
             ),
         ],
     ),
-    color="#96ceb4",
+    color="#7FFFD4",
     dark=False,
     className="fixed-top",
     style={"height": "80px"},
