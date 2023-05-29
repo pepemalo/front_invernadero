@@ -28,7 +28,7 @@ SIDEBAR_STYLE = {
     "overflow-x": "hidden",
     "transition": "all 0.5s",
     "padding": "0.5rem 1rem",
-    "background-color": "rgba(29, 131, 72, 0.5)",
+    "background-color": "#7FFFD4",
 }
 SIDEBAR_HIDEN = {
     "position": "fixed",
