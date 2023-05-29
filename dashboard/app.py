@@ -8,9 +8,7 @@ import base64
 import datetime
 import io
 import os
-import plotly.graph_objects as go
-import plotly.graph_objects as go
-import plotly.express as px
+
 
 
 app = Dash(__name__, external_stylesheets=[
@@ -335,29 +333,7 @@ def update_graph(start, end, grafi, opci):
             df = pd.DataFrame(dtTrue)
             print(df)
             pd.to_datetime(df.FECHA, format="%Y/%m/%d")
-            if start and end and grafi in ['Barra', 'Linea', 'Area']:
-                fig = go.Figure()
 
-            # Agrega aquí todas las variables que deseas graficar
-            variables = ['T1', 'H1', 'MO1', 'LUX1']
-
-        for var in variables:
-            if grafi == 'Barra':
-                fig.add_trace(go.Bar(x=df['FECHA'], y=df[var], name=var))
-            elif grafi == 'Linea':
-                fig.add_trace(go.Scatter(
-                    x=df['FECHA'], y=df[var], mode='lines', name=var))
-            elif grafi == 'Area':
-                fig.add_trace(go.Scatter(
-                    x=df['FECHA'], y=df[var], mode='lines', fill='tozeroy', name=var))
-
-        fig.update_layout(xaxis_visible=True)
-        return fig
-    else:
-        return dash.no_update
-
-
-"""
     if start and end and grafi == 'Barra':
         my_bar = px.bar(df, x='FECHA', y=['T1', 'H1', 'MO1', 'LUX1'])
         my_bar.update_layout(xaxis_visible=True)
@@ -373,9 +349,6 @@ def update_graph(start, end, grafi, opci):
     else:
         return dash.no_update
 
-
-
-"""
 
 
 @app.callback(
@@ -405,7 +378,7 @@ def render_page_content(pathname):
                         'borderStyle': 'groove',
                         'borderRadius': '10px',
                         'textAlign': 'center',
-                        'background-color': '#3dc2ff',
+                        'background-color': '#7FFFD4',
                         "position": 'relative',
                         "top": '50px',
                         "left": '20px',
