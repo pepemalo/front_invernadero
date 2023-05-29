@@ -8,10 +8,11 @@ import base64
 import datetime
 import io
 import os
+import plotly.graph_objects as go
 
 
-
-app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP], suppress_callback_exceptions=True)
+app = Dash(__name__, external_stylesheets=[
+           dbc.themes.BOOTSTRAP], suppress_callback_exceptions=True)
 
 server = app.server
 
@@ -39,7 +40,7 @@ SIDEBAR_HIDEN = {
     "z-index": 1,
     "overflow-x": "hidden",
     "transition": "all 0.5s",
-    "padding": "0rem 0rem", 
+    "padding": "0rem 0rem",
     "background-color": "#f8f9fa",
 }
 CONTENT_STYLE = {
@@ -54,7 +55,7 @@ CONTENT_STYLE1 = {
     "margin-left": "2rem",
     "margin-right": "2rem",
     "padding": "2rem 1rem",
-            "background-color": "#f8f9fa",
+    "background-color": "#f8f9fa",
 }
 CALEN_STYLE = {
     "margin-left": "2rem",
@@ -67,8 +68,6 @@ LATERAL_STYLE = {
     "margin-right": "0px",
     "margin-left": "1px",
 }
-
-
 
 
 cart_style = {
@@ -91,10 +90,9 @@ cart_text_style = {
 }
 
 
-
 sidebar = html.Div(
     [
-       
+
     ],
     id="sidebar",
     style=SIDEBAR_STYLE,
@@ -113,16 +111,22 @@ carousel = dbc.Carousel(
 nav = dbc.Nav(
 
     [
-        dbc.NavItem(dbc.NavLink("Menu", active=True, className="text-white", id="btn_sidebar", href="#")),
-        dbc.NavItem(dbc.NavLink("Graficas", className="text-white", active=True, href="/graficas")),
-        dbc.NavItem(dbc.NavLink("Manual", className="text-white", href="/manual")),
-        dbc.NavItem(dbc.NavLink("Modal", className="text-white", id="open", n_clicks=0, href="#")),
+        dbc.NavItem(dbc.NavLink("Menu", active=True,
+                    className="text-white", id="btn_sidebar", href="#")),
+        dbc.NavItem(dbc.NavLink("Graficas", className="text-white",
+                    active=True, href="/graficas")),
+        dbc.NavItem(dbc.NavLink(
+            "Manual", className="text-white", href="/manual")),
+        dbc.NavItem(dbc.NavLink("Modal", className="text-white",
+                    id="open", n_clicks=0, href="#")),
         dbc.Modal(
             [
-                dbc.ModalHeader("DESARROLLADO POR",className="modal-title font-weight-bold text-primary", style={"text-align": "center", "font-size": "2rem"}),
+                dbc.ModalHeader("DESARROLLADO POR", className="modal-title font-weight-bold text-primary",
+                                style={"text-align": "center", "font-size": "2rem"}),
                 html.H2("Anderson Cardozo Arrieta", className="card-text"),
                 html.H2(" ", className="card-text"),
-                html.H2("Yordan Daniel Tarazona Gamboa", className="card-text"),
+                html.H2("Yordan Daniel Tarazona Gamboa",
+                        className="card-text"),
                 html.H2(" ", className="card-text"),
                 dbc.ModalFooter(
                     dbc.Button(
@@ -137,16 +141,22 @@ nav = dbc.Nav(
 )
 nav = dbc.Nav(
     [
-        dbc.NavItem(dbc.NavLink("Menu", active=True, className="text-white", id="btn_sidebar", href="#")),
-        dbc.NavItem(dbc.NavLink("Graficas", className="text-white", active=True, href="/graficas")),
-        dbc.NavItem(dbc.NavLink("Manual", className="text-white", href="/manual")),
-        dbc.NavItem(dbc.NavLink("Modal", className="text-white", id="open", n_clicks=0, href="#")),
+        dbc.NavItem(dbc.NavLink("Menu", active=True,
+                    className="text-white", id="btn_sidebar", href="#")),
+        dbc.NavItem(dbc.NavLink("Graficas", className="text-white",
+                    active=True, href="/graficas")),
+        dbc.NavItem(dbc.NavLink(
+            "Manual", className="text-white", href="/manual")),
+        dbc.NavItem(dbc.NavLink("Modal", className="text-white",
+                    id="open", n_clicks=0, href="#")),
         dbc.Modal(
             [
-                dbc.ModalHeader("DESARROLLADO POR",className="modal-title font-weight-bold text-primary", style={"text-align": "center", "font-size": "2rem"}),
+                dbc.ModalHeader("DESARROLLADO POR", className="modal-title font-weight-bold text-primary",
+                                style={"text-align": "center", "font-size": "2rem"}),
                 html.H2("Anderson Cardozo Arrieta", className="card-text"),
                 html.H2(" ", className="card-text"),
-                html.H2("Yordan Daniel Tarazona Gamboa", className="card-text"),
+                html.H2("Yordan Daniel Tarazona Gamboa",
+                        className="card-text"),
                 html.H2(" ", className="card-text"),
                 dbc.ModalFooter(
                     dbc.Button(
@@ -168,7 +178,7 @@ navbar = dbc.Navbar(
                     [
                         dbc.Col(html.Img(src=PLOTLY_LOGO, height="80px")),
                         dbc.Col(dbc.NavbarBrand("Invernadero", className="text-black",
-                        style={"font-size": "24px", "font-weight": "bold", "color": "white"}))
+                                                style={"font-size": "24px", "font-weight": "bold", "color": "white"}))
                     ],
                 ),
                 href="/",
@@ -211,14 +221,17 @@ app.layout = html.Div(children=[
     dcc.Location(id="url"),
     navbar,
     sidebar,
-    #app.layout,
+    # app.layout,
     plantilla,
 ])
+
+
 @app.callback(Output('url', 'pathname'), [Input('cart-link', 'n_clicks')], [State('url', 'pathname')])
 def go_to_robot(n_clicks, pathname):
     if n_clicks is not None:
         return '/robot.py'
     return pathname
+
 
 @app.callback(
     [Output("sidebar", "style"),
@@ -242,6 +255,8 @@ def toggle_sidebar(n, nclick):
         content_style = CONTENT_STYLE
         cur_nclick = 'SHOW'
     return sidebar_style, content_style, cur_nclick
+
+
 @app.callback(
     Output("modal", "is_open"),
     [Input("open", "n_clicks"), Input("close", "n_clicks")],
@@ -251,6 +266,8 @@ def toggle_modal(n1, n2, is_open):
     if n1 or n2:
         return not is_open
     return is_open
+
+
 @app.callback(
     Output("navbar-collapse", "is_open"),
     [Input("navbar-toggler", "n_clicks")],
@@ -260,6 +277,8 @@ def toggle_navbar_collapse(n, is_open):
     if n:
         return not is_open
     return is_open
+
+
 @app.callback(
     Output('bargraph', 'figure'),
     Input('date-picker-range', 'start_date'),
@@ -274,13 +293,13 @@ def update_graph(start, end, grafi, opci):
         start = start.strftime('%Y-%m-%d')
         end = date.fromisoformat(end)
         end = end.strftime('%Y-%m-%d')
-        
-        
+
         if opci == "API":
             print("Conxion por medio de API")
-            dt = pd.read_json("https://rest-server-invernadero.onrender.com/api/v1/filterDatos/"+start+"&"+end+"")
+            dt = pd.read_json(
+                "https://rest-server-invernadero.onrender.com/api/v1/filterDatos/"+start+"&"+end+"")
             df = pd.DataFrame(dt)
-            print("Graficara los archivos ::" ,df)
+            print("Graficara los archivos ::", df)
         else:
             print("Conxion LOCAL")
             dt = pd.read_csv('../datosTrue01.csv')
@@ -307,13 +326,36 @@ def update_graph(start, end, grafi, opci):
                     datos.append(aux)
                     aux = []
             dtTrue = {'FECHA': fch,
-                        'T1': datos[0], 'T2': datos[1], 'T3': datos[2], 'T4': datos[3],
-                        'H1': datos[4], 'H2': datos[5], 'H3': datos[6], 'H4': datos[7],
-                        'MO1': datos[8], 'MO2': datos[9], 'MO3': datos[10], 'MO4': datos[11],
-                        'LUX1': datos[12], 'LUX2': datos[13], 'LUX3': datos[14], 'LUX4': datos[15], }
+                      'T1': datos[0], 'T2': datos[1], 'T3': datos[2], 'T4': datos[3],
+                      'H1': datos[4], 'H2': datos[5], 'H3': datos[6], 'H4': datos[7],
+                      'MO1': datos[8], 'MO2': datos[9], 'MO3': datos[10], 'MO4': datos[11],
+                      'LUX1': datos[12], 'LUX2': datos[13], 'LUX3': datos[14], 'LUX4': datos[15], }
             df = pd.DataFrame(dtTrue)
             print(df)
             pd.to_datetime(df.FECHA, format="%Y/%m/%d")
+            if start and end and grafi in ['Barra', 'Linea', 'Area']:
+                fig = go.Figure()
+
+            # Agrega aquí todas las variables que deseas graficar
+            variables = ['T1', 'H1', 'MO1', 'LUX1']
+
+        for var in variables:
+            if grafi == 'Barra':
+                fig.add_trace(go.Bar(x=df['FECHA'], y=df[var], name=var))
+            elif grafi == 'Linea':
+                fig.add_trace(go.Scatter(
+                    x=df['FECHA'], y=df[var], mode='lines', name=var))
+            elif grafi == 'Area':
+                fig.add_trace(go.Scatter(
+                    x=df['FECHA'], y=df[var], mode='lines', fill='tozeroy', name=var))
+
+        fig.update_layout(xaxis_visible=True)
+        return fig
+    else:
+        return dash.no_update
+
+
+"""
     if start and end and grafi == 'Barra':
         my_bar = px.bar(df, x='FECHA', y=['T1', 'H1', 'MO1', 'LUX1'])
         my_bar.update_layout(xaxis_visible=True)
@@ -328,6 +370,12 @@ def update_graph(start, end, grafi, opci):
         return my_area
     else:
         return dash.no_update
+
+
+
+"""
+
+
 @app.callback(
     Output("page-content", "children"),
     [Input("url", "pathname")]
@@ -378,43 +426,43 @@ def render_page_content(pathname):
                 ),
                 html.Div([
                     dbc.Container(
-                    [
-                        dbc.Row(
-                            [
-                                dbc.Col(html.P("Forma de la Grafica"),),
-                                dbc.Col(html.P("Modo Graficas"),),
-                            ],
-                        ),
-                        dbc.Row(
-                            [
-                                dbc.Col(dcc.Dropdown(['Linea', 'Area', 'Barra'], 'Barra',
-                                        id='selec_grafi',style={
+                        [
+                            dbc.Row(
+                                [
+                                    dbc.Col(html.P("Forma de la Grafica"),),
+                                    dbc.Col(html.P("Modo Graficas"),),
+                                ],
+                            ),
+                            dbc.Row(
+                                [
+                                    dbc.Col(dcc.Dropdown(['Linea', 'Area', 'Barra'], 'Barra',
+                                                         id='selec_grafi', style={
                                             "width": "120px",
                                             "top": '-15px',
                                             "left": '25px',
-                                        },
-                                ),),
-                                dbc.Col(dcc.Dropdown(['LOCAL', 'API'], 'API',
-                                        id='selec_opc',style={
+                                            },
+                                    ),),
+                                    dbc.Col(dcc.Dropdown(['LOCAL', 'API'], 'API',
+                                                         id='selec_opc', style={
                                             "width": "120px",
                                             "top": '-15px',
                                             "left": '25px',
-                                        },
-                                )),
-                            ],
-                        ),
-                    ],),          
+                                            },
+                                    )),
+                                ],
+                            ),
+                        ],),
                 ]
                 ),
                 html.Br(),
                 dbc.Row([
                     dbc.Col([
                         dcc.Graph(id='bargraph',
-                                    style={
-                                        "width": '10',
-                                        'position': 'relative',
-                                    },
-                                    figure={})
+                                  style={
+                                      "width": '10',
+                                      'position': 'relative',
+                                  },
+                                  figure={})
                     ],
                     ),
                 ],
@@ -422,17 +470,17 @@ def render_page_content(pathname):
                 ),
             ]),
         ]
-    
+
     elif pathname == "/manual":
         print("OPCION MANUAL.")
         file_path = os.path.abspath("MANUAL DE USUARIO V2.pdf")
-        print("Busco el Archivo en la siguiente ruta.",file_path)
+        print("Busco el Archivo en la siguiente ruta.", file_path)
         with open(file_path, 'rb') as f:
             pdf_bytes = f.read()
-            #print(" pdf convertido a bytes :",pdf_bytes)
+            # print(" pdf convertido a bytes :",pdf_bytes)
             pdf_b64 = base64.b64encode(pdf_bytes).decode('utf-8')
             pdf_url = f"data:application/pdf;base64,{pdf_b64}"
-            #print(" pdf  ruta f :",pdf_url)
+            # print(" pdf  ruta f :",pdf_url)
             pdf_viewer = html.Iframe(src=pdf_url, width='80%', height='700')
             print("Ya convirtio el Archivo .")
         return [
@@ -440,7 +488,8 @@ def render_page_content(pathname):
             dbc.CardBody(
                 [
                     html.H4("Intrucciones"),
-                    html.Div(children=[pdf_viewer])  # Aquí agregamos el componente html.Div que contiene el pdf_viewer
+                    # Aquí agregamos el componente html.Div que contiene el pdf_viewer
+                    html.Div(children=[pdf_viewer])
                 ], style={"textAlign": "center"},
             )
         ]
@@ -479,6 +528,7 @@ def render_page_content(pathname):
             html.P(f"The pathname {pathname} was not recognised..."),
         ]
     )
+
 
 if __name__ == ('__main__'):
     app.run_server(debug=False)
