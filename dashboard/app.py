@@ -9,6 +9,8 @@ import datetime
 import io
 import os
 import plotly.graph_objects as go
+import plotly.graph_objects as go
+import plotly.express as px
 
 
 app = Dash(__name__, external_stylesheets=[
