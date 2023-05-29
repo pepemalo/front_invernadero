@@ -166,7 +166,7 @@ navbar = dbc.Navbar(
             html.A(
                 dbc.Row(
                     [
-                        dbc.Col(html.Img(src=PLOTLY_LOGO, height="50px")),
+                        dbc.Col(html.Img(src=PLOTLY_LOGO, height="80px")),
                         dbc.Col(dbc.NavbarBrand("Invernadero", className="text-black",
                         style={"font-size": "24px", "font-weight": "bold", "color": "white"}))
                     ],
