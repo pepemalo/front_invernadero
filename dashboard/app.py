@@ -199,7 +199,7 @@ navbar = dbc.Navbar(
     #color="#57ebde,#aefb2a",  # BARRA SUPERIOR LATERAL
     dark=False,
     className="fixed-top",
-    SIDEBAR_STYLE = SIDEBAR_HIDEN,
+    style=  SIDEBAR_HIDEN,
    # style={"height": "80px"},
 )
 """
