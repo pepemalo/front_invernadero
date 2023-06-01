@@ -69,7 +69,7 @@ LATERAL_STYLE = {
     "padding": "1px",
     "margin-right": "0px",
     "margin-left": "1px",
-    "background": "linear-gradient(to right, #C5F9D7, #c1fba4)"
+   ##"background": "linear-gradient(to right, #C5F9D7, #c1fba4)"
 }
 
 
