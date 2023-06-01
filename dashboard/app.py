@@ -40,8 +40,8 @@ SIDEBAR_HIDEN = {
     "overflow-x": "hidden",
     "transition": "all 0.5s",
     "padding": "0rem 0rem",
-    #"background-color": "#f8f9fa",
-    "background": "linear-gradient(to right, #57ebde, #aefb2a);",
+    "background-color": "#f8f9fa",
+    #"background": "linear-gradient(to right, #57ebde, #aefb2a);",
 }
 CONTENT_STYLE = {
     "transition": "margin-left .5s",
