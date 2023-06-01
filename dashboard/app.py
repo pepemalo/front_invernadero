@@ -140,7 +140,7 @@ nav = dbc.Nav(
             is_open=False,
         ),
     ],
-    style=LATERAL_STYLE,
+    #style=LATERAL_STYLE,
 )
 nav = dbc.Nav(
     [
