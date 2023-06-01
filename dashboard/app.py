@@ -55,6 +55,8 @@ CONTENT_STYLE1 = {
     "margin-left": "2rem",
     "margin-right": "2rem",
     "padding": "2rem 1rem",
+    "margin": 0,
+    "padding": 0,   
     "background-color": "#c1fba4", # fondo
 }
 CALEN_STYLE = {
