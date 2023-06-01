@@ -196,11 +196,11 @@ navbar = dbc.Navbar(
         ],
     ),
     #color = "background: linear-gradient(to right, #57ebde, #aefb2a);",
-    #color="#57ebde,#aefb2a",  # BARRA SUPERIOR LATERAL
+    color="#e0f2e9",  # BARRA SUPERIOR LATERAL
     dark=False,
     className="fixed-top",
-    style=  SIDEBAR_HIDEN,
-   # style={"height": "80px"},
+    #style=  SIDEBAR_HIDEN,
+    style={"height": "80px"},
 )
 """
 app.layout = html.Div([
