@@ -41,7 +41,8 @@ SIDEBAR_HIDEN = {
     "overflow-x": "hidden",
     "transition": "all 0.5s",
     "padding": "0rem 0rem",
-    "background-color": "#f8f9fa",
+    #"background-color": "#f8f9fa",
+    "background": "linear-gradient(to right, #57ebde, #aefb2a);",
 }
 CONTENT_STYLE = {
     "transition": "margin-left .5s",
@@ -382,7 +383,7 @@ def render_page_content(pathname):
                         'borderStyle': 'groove',
                         'borderRadius': '10px',
                         'textAlign': 'center',
-                        'background-color': '#7FFFD4',
+                        "background": "linear-gradient(to right, #57ebde, #aefb2a);",
                         "position": 'relative',
                         "top": '50px',
                         "left": '20px',
