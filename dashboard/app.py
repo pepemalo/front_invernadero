@@ -48,14 +48,14 @@ CONTENT_STYLE = {
     "margin-left": "18rem",
     "margin-right": "2rem",
     "padding": "2rem 1rem",
-    "background-color": "#c1fba4", #
+    #"background-color": "#c1fba4", # Fondo de la Opcion Menu
 }
 CONTENT_STYLE1 = {
     "transition": "margin-left .5s",
     "margin-left": "2rem",
     "margin-right": "2rem",
     "padding": "2rem 1rem",
-    "background-color": "#f8f9fa",
+    "background-color": "#c1fba4", # fondo
 }
 CALEN_STYLE = {
     "margin-left": "2rem",
