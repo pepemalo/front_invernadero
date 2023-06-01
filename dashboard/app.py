@@ -196,7 +196,7 @@ navbar = dbc.Navbar(
         ],
     ),
     #color = "background: linear-gradient(to right, #57ebde, #aefb2a);",
-    color="#57ebde,#aefb2a",  # BARRA SUPERIOR LATERAL
+    #color="#57ebde,#aefb2a",  # BARRA SUPERIOR LATERAL
     dark=False,
     className="fixed-top",
     style={"height": "80px"},
