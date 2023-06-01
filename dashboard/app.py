@@ -28,7 +28,7 @@ SIDEBAR_STYLE = {
     "overflow-x": "hidden",
     "transition": "all 0.5s",
     "padding": "0.5rem 1rem",
-    "background-color": "#004B23", ##96ceb4 COLOR LATERAL ARRIBA
+    "background-color": "#004B23", # BARRA IZQUIERDA
 }
 SIDEBAR_HIDEN = {
     "position": "fixed",
@@ -48,7 +48,7 @@ CONTENT_STYLE = {
     "margin-left": "18rem",
     "margin-right": "2rem",
     "padding": "2rem 1rem",
-    "background-color": "#f8f9fa",
+    "background-color": "#c1fba4", #
 }
 CONTENT_STYLE1 = {
     "transition": "margin-left .5s",
@@ -192,7 +192,7 @@ navbar = dbc.Navbar(
             ),
         ],
     ),
-    color="#008000",  # BARRA IZQUIERA
+    color="#008000",  # BARRA SUPERIOR LATERAL
     dark=False,
     className="fixed-top",
     style={"height": "80px"},
