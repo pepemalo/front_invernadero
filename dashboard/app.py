@@ -54,7 +54,7 @@ CONTENT_STYLE1 = {
     "margin-left": "2rem",
     "margin-right": "2rem",
     "padding": "2rem 1rem",
-    "margin": "100vw",
+    #"margin": "100vw",
     #"padding": 0,   
     #"background-color": "#c1fba4",
     "background": "linear-gradient(to right, #C5F9D7, #c1fba4)"
