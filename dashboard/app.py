@@ -69,7 +69,6 @@ LATERAL_STYLE = {
     "padding": "1px",
     "margin-right": "0px",
     "margin-left": "1px",
-   ##"background": "linear-gradient(to right, #C5F9D7, #c1fba4)"
 }
 
 
@@ -196,7 +195,7 @@ navbar = dbc.Navbar(
         ],
     ),
     #color = "background: linear-gradient(to right, #57ebde, #aefb2a);",
-    color="#e0f2e9",  # BARRA SUPERIOR LATERAL
+    color="#06A77D",  # BARRA SUPERIOR LATERAL
     dark=False,
     className="fixed-top",
     #style=  SIDEBAR_HIDEN,
