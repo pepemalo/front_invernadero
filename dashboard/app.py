@@ -11,8 +11,7 @@ import os
 
 
 
-app = Dash(__name__, external_stylesheets=[
-           dbc.themes.BOOTSTRAP], suppress_callback_exceptions=True)
+app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP], suppress_callback_exceptions=True)
 
 server = app.server
 
@@ -201,7 +200,7 @@ navbar = dbc.Navbar(
     dark=False,
     className="fixed-top",
     SIDEBAR_STYLE = SIDEBAR_HIDEN,
-    style={"height": "80px"},
+   # style={"height": "80px"},
 )
 """
 app.layout = html.Div([
