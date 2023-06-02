@@ -27,7 +27,8 @@ SIDEBAR_STYLE = {
     "overflow-x": "hidden",
     "transition": "all 0.5s",
     "padding": "0.5rem 1rem",
-    "background": "linear-gradient(to right, #57ebde, #aefb2a)", # BARRA IZQUIERDA
+    "background-color": "#43B3AE", # BARRA IZQUIERDA
+    #"background": "linear-gradient(to right, #57ebde, #aefb2a)", 
 }
 SIDEBAR_HIDEN = {
     "position": "fixed",
@@ -40,7 +41,7 @@ SIDEBAR_HIDEN = {
     "overflow-x": "hidden",
     "transition": "all 0.5s",
     "padding": "0rem 0rem",
-    "background-color": "#f8f9fa",
+    "background-color": "#aefb2a",
 }
 CONTENT_STYLE = {
     "transition": "margin-left .5s",
@@ -53,7 +54,7 @@ CONTENT_STYLE1 = {
     "margin-left": "2rem",
     "margin-right": "2rem",
     "padding": "2rem 1rem",
-    "background": "linear-gradient(to right, #f2f3e2, #f2f3e2)" #fondo
+    "background": "linear-gradient(to right, #cad0ff, #cad0ff)", #fondo
 }
 CALEN_STYLE = {
     "margin-left": "2rem",
@@ -377,7 +378,6 @@ def render_page_content(pathname):
                         'borderStyle': 'groove',
                         'borderRadius': '10px',
                         'textAlign': 'center',
-                        "background": "linear-gradient(to right, #57ebde, #aefb2a)",
                         "position": 'relative',
                         "top": '50px',
                         "left": '20px',
