@@ -54,7 +54,7 @@ CONTENT_STYLE1 = {
     "margin-left": "2rem",
     "margin-right": "2rem",
     "padding": "2rem 1rem",
-    "background": "linear-gradient(to right, #1e201f, #1e201f)", #fondo
+    "background-color": "#edede9", #fondo
 }
 CALEN_STYLE = {
     "margin-left": "2rem",
