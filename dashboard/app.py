@@ -27,7 +27,7 @@ SIDEBAR_STYLE = {
     "overflow-x": "hidden",
     "transition": "all 0.5s",
     "padding": "0.5rem 1rem",
-    "background-color": "#43B3AE", # BARRA IZQUIERDA
+    "background-color": "#ebf4f5", # BARRA IZQUIERDA
     #"background": "linear-gradient(to right, #57ebde, #aefb2a)", 
 }
 SIDEBAR_HIDEN = {
@@ -41,7 +41,7 @@ SIDEBAR_HIDEN = {
     "overflow-x": "hidden",
     "transition": "all 0.5s",
     "padding": "0rem 0rem",
-    "background-color": "#aefb2a",
+    "background-color": "#d3f3f1", # barra izquiera
 }
 CONTENT_STYLE = {
     "transition": "margin-left .5s",
@@ -54,7 +54,7 @@ CONTENT_STYLE1 = {
     "margin-left": "2rem",
     "margin-right": "2rem",
     "padding": "2rem 1rem",
-    "background": "linear-gradient(to right, #cad0ff, #cad0ff)", #fondo
+    "background": "linear-gradient(to right, #ebf4f5, #ebf4f5)", #fondo
 }
 CALEN_STYLE = {
     "margin-left": "2rem",
