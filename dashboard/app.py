@@ -53,7 +53,7 @@ CONTENT_STYLE1 = {
     "margin-left": "2rem",
     "margin-right": "2rem",
     "padding": "2rem 1rem",
-    "background": "linear-gradient(to right, #f2f3e2, #e3e3e3)" #fondo
+    "background": "linear-gradient(to right, #f2f3e2, #f2f3e2)" #fondo
 }
 CALEN_STYLE = {
     "margin-left": "2rem",
@@ -377,7 +377,7 @@ def render_page_content(pathname):
                         'borderStyle': 'groove',
                         'borderRadius': '10px',
                         'textAlign': 'center',
-                        "background": "linear-gradient(to right, #57ebde, #aefb2a);",
+                        "background": "linear-gradient(to right, #57ebde, #aefb2a)",
                         "position": 'relative',
                         "top": '50px',
                         "left": '20px',
