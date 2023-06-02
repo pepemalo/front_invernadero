@@ -27,7 +27,7 @@ SIDEBAR_STYLE = {
     "overflow-x": "hidden",
     "transition": "all 0.5s",
     "padding": "0.5rem 1rem",
-    "background-color": "#004B23", # BARRA IZQUIERDA
+    "background": "linear-gradient(to right, #57ebde, #aefb2a);", # BARRA IZQUIERDA
 }
 SIDEBAR_HIDEN = {
     "position": "fixed",
@@ -41,7 +41,6 @@ SIDEBAR_HIDEN = {
     "transition": "all 0.5s",
     "padding": "0rem 0rem",
     "background-color": "#f8f9fa",
-    #"background": "linear-gradient(to right, #57ebde, #aefb2a);",
 }
 CONTENT_STYLE = {
     "transition": "margin-left .5s",
@@ -54,10 +53,7 @@ CONTENT_STYLE1 = {
     "margin-left": "2rem",
     "margin-right": "2rem",
     "padding": "2rem 1rem",
-    #"margin": "100vw",
-    #"padding": 0,   
-    #"background-color": "#c1fba4",
-    "background": "linear-gradient(to right, #C5F9D7, #c1fba4)"
+    "background": "linear-gradient(to right, #cad0ff, #e3e3e3)" #fondo
 }
 CALEN_STYLE = {
     "margin-left": "2rem",
@@ -194,7 +190,6 @@ navbar = dbc.Navbar(
             ),
         ],
     ),
-    #color = "background: linear-gradient(to right, #57ebde, #aefb2a);",
     color="#06A77D",  # BARRA SUPERIOR LATERAL
     dark=False,
     className="fixed-top",
