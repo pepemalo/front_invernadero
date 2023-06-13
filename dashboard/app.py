@@ -106,7 +106,9 @@ carousel = dbc.Carousel(
     ],
     controls=True,
     indicators=True,
+
 )
+
 nav = dbc.Nav(
 
     [
@@ -255,6 +257,7 @@ def toggle_sidebar(n, nclick):
         content_style = CONTENT_STYLE
         cur_nclick = 'SHOW'
     return sidebar_style, content_style, cur_nclick
+
 
 
 @app.callback(
@@ -502,6 +505,47 @@ def render_page_content(pathname):
             html.P(f"The pathname {pathname} was not recognised..."),
         ]
     )
+
+
+def parse_contents(contents, filename):
+    content_type, content_string = contents.split(',')
+
+    decoded = base64.b64decode(content_string)
+    
+    try:
+        if 'csv' in filename:
+            # Assume that the user uploaded a CSV file
+            df = pd.read_csv(
+                io.StringIO(decoded.decode('utf-8')))
+        elif 'xls' in filename:
+            # Assume that the user uploaded an Excel file
+            df = pd.read_excel(io.BytesIO(decoded))
+        elif 'txt' or 'tsv' in filename:
+            # Assume that the user uploaded a TXT or TSV file
+            df = pd.read_csv(
+                io.StringIO(decoded.decode('utf-8')), delimiter='\t')
+    except Exception as e:
+        print(e)
+        return html.Div([
+            'Hubo un error al procesar el archivo.'
+        ])
+
+    return html.Div([
+        html.H5(filename),
+        html.H6("Contenido del archivo:"),
+        html.Pre(df.head().to_string())
+    ])
+
+
+@app.callback(Output('output-data-upload', 'children'),
+              Input('upload-data', 'contents'),
+              State('upload-data', 'filename'))
+def update_output(contents, filename):
+    if contents is not None:
+        children = [
+            parse_contents(contents, filename)
+        ]
+        return children
 
 
 if __name__ == ('__main__'):
