@@ -11,6 +11,7 @@ import os
 
 
 
+
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP], suppress_callback_exceptions=True)
 
 server = app.server
@@ -506,7 +507,7 @@ def render_page_content(pathname):
         ]
     )
 
-
+#Despliegue de pagina con los datos a graficar
 def parse_contents(contents, filename):
     content_type, content_string = contents.split(',')
 
@@ -535,6 +536,17 @@ def parse_contents(contents, filename):
         html.H6("Contenido del archivo:"),
         html.Pre(df.head().to_string())
     ])
+
+
+@app.callback(Output('output-data-upload', 'children'),
+              Input('upload-data', 'contents'),
+              State('upload-data', 'filename'))
+def update_output(contents, filename):
+    if contents is not None:
+        children = [
+            parse_contents(contents, filename)
+        ]
+        return children
 
 
 @app.callback(Output('output-data-upload', 'children'),
