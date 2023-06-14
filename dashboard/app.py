@@ -390,6 +390,7 @@ def render_page_content(pathname):
                     multiple=False,
                 ),
                 html.Div(id='output-data-upload'),
+                html.Div(id='popup', style={'display': 'none'})
             ]),
             html.Div([
                 dcc.DatePickerRange(
@@ -508,23 +509,39 @@ def render_page_content(pathname):
     )
 
 #Despliegue de pagina con los datos a graficar
-def parse_contents(contents, filename):
+app.scripts.append_script({
+    'external_url': 'https://code.jquery.com/jquery-3.6.0.min.js'
+})
+app.clientside_callback(
+    """
+    function(displayPopup, outputData) {
+        if (outputData) {
+            displayPopup();
+        }
+    }
+    """,
+    Output('popup', 'style'),
+    [Input('output-data-upload', 'children')],
+    prevent_initial_call=True
+)
+
+
+@app.callback(Output('output-data-upload', 'children'),
+              Input('upload-data', 'contents'),
+              )
+def update_output(contents):
+    if contents is not None:
+        children = parse_contents(contents)
+        return children
+
+
+def parse_contents(contents):
     content_type, content_string = contents.split(',')
 
     decoded = base64.b64decode(content_string)
     
     try:
-        if 'csv' in filename:
-            # Assume that the user uploaded a CSV file
-            df = pd.read_csv(
-                io.StringIO(decoded.decode('utf-8')))
-        elif 'xls' in filename:
-            # Assume that the user uploaded an Excel file
-            df = pd.read_excel(io.BytesIO(decoded))
-        elif 'txt' or 'tsv' in filename:
-            # Assume that the user uploaded a TXT or TSV file
-            df = pd.read_csv(
-                io.StringIO(decoded.decode('utf-8')), delimiter='\t')
+        df = pd.read_csv(io.StringIO(decoded.decode('utf-8')))
     except Exception as e:
         print(e)
         return html.Div([
@@ -532,32 +549,9 @@ def parse_contents(contents, filename):
         ])
 
     return html.Div([
-        html.H5(filename),
-        html.H6("Contenido del archivo:"),
+        html.H5("Contenido del archivo:"),
         html.Pre(df.head().to_string())
     ])
-
-
-@app.callback(Output('output-data-upload', 'children'),
-              Input('upload-data', 'contents'),
-              State('upload-data', 'filename'))
-def update_output(contents, filename):
-    if contents is not None:
-        children = [
-            parse_contents(contents, filename)
-        ]
-        return children
-
-
-@app.callback(Output('output-data-upload', 'children'),
-              Input('upload-data', 'contents'),
-              State('upload-data', 'filename'))
-def update_output(contents, filename):
-    if contents is not None:
-        children = [
-            parse_contents(contents, filename)
-        ]
-        return children
 
 
 if __name__ == ('__main__'):
