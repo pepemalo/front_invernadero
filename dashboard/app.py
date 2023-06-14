@@ -511,11 +511,14 @@ def render_page_content(pathname):
 
 #Despliegue de pagina con los datos a graficar
 def parse_contents(contents, filename, date):
+    print("Dentro de la funcion parse_contents ")
     content_type, content_string = contents.split(',')
 
     decoded = base64.b64decode(content_string)
     try:
+        print("Dentro del try catch")
         if 'csv' in filename:
+            print("Dentro de la validacion csv")
             # Assume that the user uploaded a CSV file
             df = pd.read_csv(
                 io.StringIO(decoded.decode('utf-8')))
@@ -525,7 +528,7 @@ def parse_contents(contents, filename, date):
     except Exception as e:
         print(e)
         return html.Div([
-            'There was an error processing this file.'
+            'Error al Procesar el Archivo.'
         ])
 
     return html.Div([
