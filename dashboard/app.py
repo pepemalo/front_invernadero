@@ -150,7 +150,7 @@ nav = dbc.Nav(
                     active=True, href="/graficas")),
         dbc.NavItem(dbc.NavLink(
             "Manual", className="text-white", href="/manual")),
-        dbc.NavItem(dbc.NavLink("Acerca de ", className="text-white",
+        dbc.NavItem(dbc.NavLink("Acerca", className="text-white",
                     id="open", n_clicks=0, href="#")),
         dbc.Modal(
             [
