@@ -388,11 +388,12 @@ def render_page_content(pathname):
                         "left": '20px',
                     },
                     # Allow multiple files to be uploaded
-                    multiple=True,
+                    multiple=False, #OJO
                 ),
                 html.Div(id='output-data-upload'),
                 #html.Div(id='popup', style={'display': 'none'})
             ]),
+             
             html.Div([
                 dcc.DatePickerRange(
                     id='date-picker-range',
@@ -450,6 +451,7 @@ def render_page_content(pathname):
                 ),
             ]),
         ]
+    
 
     elif pathname == "/manual":
         print("OPCION MANUAL.")
@@ -513,8 +515,43 @@ def render_page_content(pathname):
 def parse_contents(contents, filename, date):
     print("Dentro de la funcion parse_contents ")
     content_type, content_string = contents.split(',')
-
     decoded = base64.b64decode(content_string)
+
+def procesar_archivo_csv(filename):
+    if 'csv' not in filename:
+        return html.Div([
+            'El archivo seleccionado no es un archivo CSV. Por favor, seleccione otro archivo.'
+        ])
+    else:
+        # Procesar el archivo CSV
+        df = pd.read_csv(io.StringIO(decoded.decode('utf-8')))
+        # Realizar cualquier otro procesamiento o análisis necesario
+        
+        return html.Div([
+            html.H5(f'Archivo cargado: {filename}'),
+            html.H6('Contenido del archivo:'),
+            html.Table([
+                html.Thead(html.Tr([html.Th(col) for col in df.columns])),
+                html.Tbody([
+                    html.Tr([
+                        html.Td(df.iloc[i][col]) for col in df.columns
+                    ]) for i in range(min(len(df), 5))
+                ])
+            ])
+        ])
+
+@app.callback(Output('output-data-upload', 'children'),
+              [Input('upload-data', 'contents')],
+              [State('upload-data', 'filename')])
+def update_output(contents, filename):
+    if contents is not None:
+        children = [
+            parse_contents(contents, filename)
+        ]
+        return children
+
+
+'''    decoded = base64.b64decode(content_string)
     try:
         print("Dentro del try catch")
         if 'csv' in filename:
@@ -562,6 +599,7 @@ def update_output(list_of_contents, list_of_names, list_of_dates):
             parse_contents(c, n, d) for c, n, d in
             zip(list_of_contents, list_of_names, list_of_dates)]
         return children
+'''
 
 if __name__ == ('__main__'):
     app.run_server(debug=False)
