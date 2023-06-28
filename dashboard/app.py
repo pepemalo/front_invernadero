@@ -120,15 +120,15 @@ nav = dbc.Nav(
                     active=True, href="/graficas")),
         dbc.NavItem(dbc.NavLink(
             "Manual", className="text-white", href="/manual")),
-        dbc.NavItem(dbc.NavLink("Modal", className="text-white",
+        dbc.NavItem(dbc.NavLink("Acerca de", className="text-white",
                     id="open", n_clicks=0, href="#")),
         dbc.Modal(
             [
                 dbc.ModalHeader("DESARROLLADO POR", className="modal-title font-weight-bold text-primary",
-                                style={"text-align": "center", "font-size": "2rem"}),
-                html.H2("Anderson Cardozo Arrieta", className="card-text"),
-                html.H2(" ", className="card-text"),
-                html.H2("Yordan Daniel Tarazona Gamboa",
+                style={"text-align": "center", "font-size": "2rem"}),
+                html.H3("Anderson Cardozo Arrieta", className="card-text"),
+                html.H3(" ", className="card-text"),
+                html.H3("Yordan Daniel Tarazona Gamboa",
                         className="card-text"),
                 html.H2(" ", className="card-text"),
                 dbc.ModalFooter(
@@ -369,11 +369,12 @@ def render_page_content(pathname):
     if pathname == "/graficas":
 
         return [
+            
             html.Div([
                 dcc.Upload(
                     id='upload-data',
                     children=html.Div([
-                        'Seleccione',
+                        'Seleccione ',
                         html.A('El Archivo')
                     ]),
                     style={
